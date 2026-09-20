@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#142850">
+<title>Doctor's Portal</title>
+<style>
+:root{--navy:#142850;--bg:#f6f8fb;--muted:#64748b;--border:#e2e8f0}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--navy)}
+button,input,select{font:inherit}button{cursor:pointer;border:0}input,select{width:100%;border:1px solid var(--border);background:#fff;border-radius:12px;padding:12px;outline:none}input:focus,select:focus{border-color:#93c5fd;box-shadow:0 0 0 3px #dbeafe}
+.app{min-height:100vh}.header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 4px 16px #0002}.header-in,.main{max-width:1100px;margin:auto}.header-in{padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:21px;font-weight:900}.email{font-size:12px;color:#ffffff99;margin-top:4px}.header-actions{display:flex;align-items:center;gap:10px}.status{font-size:12px;font-weight:700;color:#fffB}.btn{background:var(--navy);color:#fff;border-radius:12px;padding:12px 16px;font-weight:800}.btn.secondary{background:#fff;color:#475569}.btn.danger{background:#fee2e2;color:#991b1b}.btn.green{background:#dcfce7;color:#166534}.btn.blue{background:#2563eb;color:#fff}.main{padding:16px 16px 80px}.nav{background:#fff;border-radius:16px;padding:8px;display:flex;gap:8px;margin-bottom:20px;box-shadow:0 1px 5px #0000000b}.nav button{flex:1;border-radius:12px;padding:12px;font-weight:800;color:#475569;background:#fff}.nav button.active{background:var(--navy);color:#fff}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.wrap{display:flex;flex-wrap:wrap;gap:8px}.section-title{font-size:25px;font-weight:900;margin:0}.sub{color:var(--muted);font-size:14px;margin-top:5px}.card{background:#fff;border-radius:16px;box-shadow:0 1px 6px #0000000b;padding:16px}.search{margin:16px 0}.list{display:flex;flex-direction:column;gap:10px}.patient,.session,.payment{display:flex;align-items:center;gap:14px;justify-content:space-between}.patient-main,.session-main,.payment-main{flex:1;min-width:0}.name{font-weight:900;font-size:18px}.muted{color:var(--muted);font-size:13px;margin-top:5px}.icon-btn{width:44px;height:44px;border-radius:12px;background:#f1f5f9;display:inline-grid;place-items:center}.call{background:#eff6ff}.wa{background:#ecfdf5}.edit{background:#fffbeb}.delete{background:#fef2f2}.empty{text-align:center;color:var(--muted);padding:40px}.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.stat{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 6px #0000000b}.stat.primary{background:var(--navy);color:#fff}.stat-label{font-size:12px;color:var(--muted)}.primary .stat-label{color:#ffffffaa}.stat-value{font-size:22px;font-weight:900;margin-top:5px}.dategrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}.dategrid button{background:#fff;border-radius:12px;padding:12px;font-weight:800;box-shadow:0 1px 6px #0000000b}.found{background:#eff6ff;border-radius:16px;padding:14px;margin-bottom:14px}.found-item{background:#fff;border-radius:12px;padding:12px;margin-top:8px}.modal-bg{position:fixed;inset:0;background:#0008;z-index:50;padding:16px;display:grid;place-items:center}.modal{background:#fff;border-radius:22px;width:min(520px,100%);max-height:92vh;overflow:auto;box-shadow:0 20px 60px #0005}.modal-head{padding:18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:2}.modal-head h3{margin:0;font-size:20px}.modal-body{padding:18px}.form{display:flex;flex-direction:column;gap:14px}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:#f1f5f9}.auth-box{width:min(430px,100%);background:#fff;border-radius:24px;padding:28px;box-shadow:0 12px 40px #0002}.logo{width:64px;height:64px;border-radius:18px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:30px;margin:0 auto 14px}.auth h1{text-align:center;margin:0;font-size:30px}.auth p{text-align:center;color:var(--muted);margin:8px 0 24px}.error{background:#fef2f2;color:#b91c1c;border-radius:12px;padding:12px;font-size:13px}.notice{background:#eff6ff;color:#1d4ed8;border-radius:12px;padding:12px;font-size:13px}.hidden{display:none!important}.fatal{padding:24px;direction:rtl}.fatal pre{direction:ltr;text-align:left;background:#111827;color:#fca5a5;padding:16px;border-radius:14px;white-space:pre-wrap}
+@media(max-width:700px){.status{display:none}.patient,.session,.payment{align-items:flex-start;flex-direction:column}.patient-actions,.session-actions,.payment-actions{width:100%}.filters,.stats{grid-template-columns:1fr 1fr}.dategrid{grid-template-columns:1fr}.nav button{font-size:12px}.header-in{padding:13px}.main{padding:12px}.section-title{font-size:22px}.stats .stat:last-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+"use strict";
+const SUPABASE_URL="https://vfovxvimwnayrcdlkogc.supabase.co";
+const SUPABASE_KEY="sb_publishable_jvkCa8uUfHgvUPPfqg2Ysg_Qo4LiYes";
+const DATA_TABLE="teacher_portal_data";
+const root=document.getElementById("root");
+const emptyData={patients:[],sessions:[],payments:[]};
+let state={screen:"loading",user:null,data:structuredClone(emptyData),tab:"patients",status:"",modal:null};
+let saveTimer=null;
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2))}
+function localDateISO(d=new Date()){const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)}
+function fmtDate(v){if(!v)return"—";return new Intl.DateTimeFormat("ar-EG",{day:"2-digit",month:"2-digit",year:"numeric"}).format(new Date(v+"T00:00:00"))}
+function fmtDateTime(v){if(!v)return"—";return new Intl.DateTimeFormat("ar-EG",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(v))}
+function money(v){return Number(v||0).toLocaleString("ar-EG")+" ج"}
+function cleanPhone(v){return String(v||"").replace(/[^\d+]/g,"")}
+function wa(v){let p=cleanPhone(v);if(/^0/.test(p))p="20"+p.slice(1);return p}
+
+async function api(path,opts={}){
+  const headers=Object.assign({"apikey":SUPABASE_KEY,"Content-Type":"application/json"},opts.headers||{});
+  const r=await fetch(SUPABASE_URL+path,Object.assign({},opts,{headers}));
+  let body=null; try{body=await r.json()}catch(_){}
+  if(!r.ok) throw new Error(body?.msg||body?.message||body?.error_description||body?.error||("HTTP "+r.status));
+  return body;
+}
+function sessionGet(){try{return JSON.parse(localStorage.getItem("doctor_portal_session")||"null")}catch(_){return null}}
+function sessionSet(s){try{localStorage.setItem("doctor_portal_session",JSON.stringify(s))}catch(_){}}
+function sessionClear(){try{localStorage.removeItem("doctor_portal_session")}catch(_){}}
+
+async function login(email,password){
+  const body=await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email,password})});
+  sessionSet(body); return body;
+}
+async function signup(email,password){
+  return api("/auth/v1/signup",{method:"POST",body:JSON.stringify({email,password})});
+}
+async function refresh(){
+  const s=sessionGet(); if(!s?.refresh_token)return null;
+  try{const body=await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:s.refresh_token})});sessionSet(body);return body}catch(_){sessionClear();return null}
+}
+async function authFetch(path,opts={}){
+  let s=sessionGet();
+  if(!s?.access_token) throw new Error("انتهت جلسة الدخول. سجل الدخول مرة أخرى.");
+  const headers=Object.assign({"Authorization":"Bearer "+s.access_token},opts.headers||{});
+  try{return await api(path,Object.assign({},opts,{headers}))}
+  catch(e){
+    if(/401|JWT|expired|invalid/i.test(e.message||"")){
+      s=await refresh(); if(!s)throw e;
+      headers.Authorization="Bearer "+s.access_token;
+      return await api(path,Object.assign({},opts,{headers}));
+    }
+    throw e;
+  }
+}
+async function loadData(){
+  const s=sessionGet();
+  const rows=await authFetch("/rest/v1/"+DATA_TABLE+"?user_id=eq."+encodeURIComponent(s.user.id)+"&select=data&limit=1");
+  const d=rows?.[0]?.data||{};
+  state.data={patients:Array.isArray(d.patients)?d.patients:[],sessions:Array.isArray(d.sessions)?d.sessions:[],payments:Array.isArray(d.payments)?d.payments:[]};
+}
+function queueSave(){
+  clearTimeout(saveTimer);
+  state.status="saving"; render();
+  saveTimer=setTimeout(async()=>{
+    try{
+      const s=sessionGet();
+      await authFetch("/rest/v1/"+DATA_TABLE+"?on_conflict=user_id",{method:"POST",headers:{"Prefer":"resolution=merge-duplicates,return=minimal"},body:JSON.stringify({user_id:s.user.id,data:state.data,updated_at:new Date().toISOString()})});
+      state.status="saved";render();
+    }catch(e){state.status="error";render();showFatal("فشل حفظ البيانات: "+e.message)}
+  },500);
+}
+function updateData(key,value){state.data[key]=typeof value==="function"?value(state.data[key]):value;queueSave()}
+function patientById(id){return state.data.patients.find(p=>p.id===id)}
+
+function render(){
+  try{
+    if(state.screen==="loading"){root.innerHTML='<div class="auth"><div class="auth-box"><div class="logo">⚕️</div><h1>Doctor\'s Portal</h1><p>جارٍ تحميل البوابة…</p></div></div>';return}
+    if(state.screen==="auth"){renderAuth();return}
+    renderPortal();
+  }catch(e){showFatal(e.stack||e.message)}
+}
+function renderAuth(){
+  root.innerHTML=`<div class="auth"><div class="auth-box">
+    <div class="logo">⚕️</div><h1>Doctor's Portal</h1><p>بوابة إدارة مرضى ومواعيد العيادة</p>
+    <div class="form">
+      <input id="email" type="email" placeholder="البريد الإلكتروني">
+      <input id="password" type="password" minlength="6" placeholder="كلمة المرور">
+      <div id="authmsg" class="error hidden"></div>
+      <button id="authsubmit" class="btn">تسجيل الدخول</button>
+      <button id="switchauth" class="btn secondary">إنشاء حساب جديد</button>
+    </div>
+  </div></div>`;
+  let mode="login";
+  const submit=async()=>{
+    const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;
+    const msg=document.getElementById("authmsg"),btn=document.getElementById("authsubmit");
+    if(!email||password.length<6){msg.textContent="أدخل بريدًا صحيحًا وكلمة مرور من 6 أحرف على الأقل.";msg.classList.remove("hidden");return}
+    btn.disabled=true;btn.textContent="جارٍ التنفيذ…";msg.classList.add("hidden");
+    try{
+      const body=mode==="login"?await login(email,password):await signup(email,password);
+      if(mode==="signup"&&!body?.access_token){msg.className="notice";msg.textContent="تم إنشاء الحساب. راجع بريدك الإلكتروني لتأكيد الحساب ثم سجل الدخول.";msg.classList.remove("hidden");btn.disabled=false;btn.textContent="إنشاء حساب";return}
+      state.user={id:body.user.id,email:body.user.email};state.screen="portal";await loadData();render();
+    }catch(e){msg.className="error";msg.textContent=e.message;msg.classList.remove("hidden");btn.disabled=false;btn.textContent=mode==="login"?"تسجيل الدخول":"إنشاء حساب"}
+  };
+  document.getElementById("authsubmit").onclick=submit;
+  document.getElementById("switchauth").onclick=()=>{mode=mode==="login"?"signup":"login";document.getElementById("authsubmit").textContent=mode==="login"?"تسجيل الدخول":"إنشاء حساب";document.getElementById("switchauth").textContent=mode==="login"?"إنشاء حساب جديد":"العودة لتسجيل الدخول"};
+}
+function renderPortal(){
+  const nav=[["patients","👥","المرضى"],["sessions","📅","الجلسات"],["payments","💰","المدفوعات"]];
+  root.innerHTML=`<div class="app"><header class="header"><div class="header-in"><div><div class="brand">Doctor's Portal</div><div class="email">${esc(state.user.email)}</div></div><div class="header-actions"><span class="status">${state.status==="saving"?"جاري الحفظ…":state.status==="saved"?"تم الحفظ":state.status==="error"?"خطأ في الحفظ":""}</span><button id="logout" class="btn secondary">خروج</button></div></div></header>
+  <main class="main"><nav class="nav">${nav.map(n=>`<button class="${state.tab===n[0]?"active":""}" data-tab="${n[0]}">${n[1]} ${n[2]}</button>`).join("")}</nav><div id="content"></div></main></div>`;
+  document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;render()});
+  document.getElementById("logout").onclick=()=>{sessionClear();state={screen:"auth",user:null,data:structuredClone(emptyData),tab:"patients",status:"",modal:null};render()};
+  if(state.tab==="patients")renderPatients(); else if(state.tab==="sessions")renderSessions(); else renderPayments();
+  if(state.modal)renderModal();
+}
+function renderPatients(){
+  const c=document.getElementById("content"); c.innerHTML=`<section><div class="row"><div><h2 class="section-title">المرضى</h2><div class="sub">إجمالي المرضى: ${state.data.patients.length}</div></div><button id="add" class="btn">＋ إضافة مريض</button></div><div class="card search"><input id="pq" placeholder="🔍 ابحث بالاسم أو رقم التليفون…"></div><div id="plist" class="list"></div></section>`;
+  document.getElementById("add").onclick=()=>openModal("patient",{});
+  const draw=()=>{const q=document.getElementById("pq").value.toLowerCase();const list=state.data.patients.filter(p=>(p.name+" "+p.phone).toLowerCase().includes(q));document.getElementById("plist").innerHTML=list.length?list.map(p=>`<div class="card patient"><div class="patient-main"><div class="name">${esc(p.name)}</div><div class="muted">${esc(p.phone)}</div></div><div class="wrap patient-actions"><a class="icon-btn call" href="tel:${esc(cleanPhone(p.phone))}">📞</a><a class="icon-btn wa" href="whatsapp://send?phone=${esc(wa(p.phone))}">💬</a><button class="icon-btn edit" data-edit="${p.id}">✏️</button><button class="icon-btn delete" data-del="${p.id}">🗑️</button></div></div>`).join(""):'<div class="card empty">لا يوجد مرضى مطابقون للبحث.</div>';document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openModal("patient",patientById(b.dataset.edit)));document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("حذف المريض؟ سيتم حذف بياناته من قائمة المرضى، ولن يتم حذف سجل المدفوعات والمواعيد تلقائيًا.")){updateData("patients",a=>a.filter(x=>x.id!==b.dataset.del));render()}})};document.getElementById("pq").oninput=draw;draw();
+}
+function renderSessions(){
+  const c=document.getElementById("content"); c.innerHTML=`<section><div class="row"><div><h2 class="section-title">الجلسات</h2><div class="sub">مواعيد اليوم مع إمكانية التنقل بين الأيام</div></div><button id="add" class="btn">＋ حجز موعد</button></div><div class="dategrid"><button id="prev">← اليوم السابق</button><input id="sdate" type="date" value="${localDateISO()}"><button id="next">اليوم التالي →</button></div><div class="filters"><input id="sq" placeholder="🔍 بحث داخل يوم الجلسات بالاسم…"><input id="allq" placeholder="🔍 ابحث عن المريض لمعرفة موعده…"><div></div></div><div id="found"></div><div id="slist"></div></section>`;
+  document.getElementById("add").onclick=()=>openModal("session",{date:localDateISO(),time:"",patientId:""});
+  const draw=()=>{const date=document.getElementById("sdate").value,q=document.getElementById("sq").value;const day=state.data.sessions.filter(s=>s.date===date).filter(s=>(patientById(s.patientId)?.name||"").includes(q)).sort((a,b)=>String(a.time).localeCompare(String(b.time)));document.getElementById("slist").innerHTML=`<div class="card"><div style="font-weight:900;padding-bottom:12px;border-bottom:1px solid var(--border)">${fmtDate(date)} — ${day.length} موعد</div>${day.length?day.map(s=>{const p=patientById(s.patientId);if(!p)return"";return `<div class="session" style="padding:14px 0;border-bottom:1px solid var(--border)"><div style="width:86px;text-align:center;background:#f8fafc;border-radius:12px;padding:12px;font-weight:900">${esc(s.time||"—")}</div><div class="session-main"><div class="name">${esc(p.name)}</div><div class="muted">${s.type==="consultation"?"كشف أول مرة":"جلسة"} • ${s.price?money(s.price):"السعر غير محدد"}</div></div><div class="wrap session-actions"><a class="btn secondary" href="tel:${esc(cleanPhone(p.phone))}">📞</a><a class="btn secondary" href="whatsapp://send?phone=${esc(wa(p.phone))}">💬</a><button class="btn secondary" data-edit="${s.id}">✏️</button>${s.paid?'<span class="btn green">مدفوع</span>':`<button class="btn blue" data-pay="${s.id}">تسجيل الدفع</button>`}</div></div>`}).join(""):'<div class="empty">لا توجد حجوزات في هذا اليوم.</div>'}</div>`;document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openModal("session",state.data.sessions.find(s=>s.id===b.dataset.edit)));document.querySelectorAll("[data-pay]").forEach(b=>{const s=state.data.sessions.find(x=>x.id===b.dataset.pay);openPayForSession(b,s)});};
+  const drawFound=()=>{const q=document.getElementById("allq").value;const found=q?state.data.patients.filter(p=>(p.name+" "+p.phone).includes(q)):[];document.getElementById("found").innerHTML=found.length?`<div class="found">${found.map(p=>{const ps=state.data.sessions.filter(s=>s.patientId===p.id).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));return `<div class="found-item"><b>${esc(p.name)}</b><div class="muted">${ps.length?ps.map(s=>fmtDate(s.date)+" — "+esc(s.time||"بدون وقت")).join(" | "):"لا يوجد حجز"}</div></div>`}).join("")}</div>`:""};document.getElementById("sq").oninput=draw;document.getElementById("allq").oninput=drawFound;document.getElementById("sdate").onchange=draw;document.getElementById("prev").onclick=()=>{let d=new Date(document.getElementById("sdate").value+"T00:00:00");d.setDate(d.getDate()-1);document.getElementById("sdate").value=localDateISO(d);draw()};document.getElementById("next").onclick=()=>{let d=new Date(document.getElementById("sdate").value+"T00:00:00");d.setDate(d.getDate()+1);document.getElementById("sdate").value=localDateISO(d);draw()};drawFound();draw();
+}
+function openPayForSession(btn,s){btn.onclick=()=>openModal("payment",{sessionId:s.id,patientId:s.patientId,type:s.type==="consultation"?"consultation":"advance",amount:s.price||patientById(s.patientId)?.sessionPrice||""})}
+function renderPayments(){
+  const c=document.getElementById("content"); c.innerHTML=`<section><div class="row"><div><h2 class="section-title">المدفوعات</h2><div class="sub">كل المبالغ الداخلة مع التاريخ والوقت</div></div><button id="add" class="btn">＋ تسجيل دفعة</button></div><div id="stats" class="stats"></div><div class="filters"><input id="payq" placeholder="🔍 اسم المريض أو الهاتف"><input id="paydate" type="date"><select id="paytype"><option value="all">كل المدفوعات</option><option value="consultation">كشف</option><option value="session">جلسة</option><option value="advance">مقدم جلسة قادمة</option></select></div><div id="paylist"></div></section>`;
+  document.getElementById("add").onclick=()=>openModal("payment",{patientId:"",type:"consultation",amount:""});
+  const draw=()=>{const q=document.getElementById("payq").value,date=document.getElementById("paydate").value,type=document.getElementById("paytype").value;const list=state.data.payments.filter(p=>{const patient=patientById(p.patientId);return(!q||(patient?.name+" "+patient?.phone).includes(q))&&(!date||String(p.createdAt).slice(0,10)===date)&&(type==="all"||p.type===type)}).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));const total=list.reduce((n,p)=>n+Number(p.amount||0),0),sum=t=>state.data.payments.filter(p=>p.type===t).reduce((n,p)=>n+Number(p.amount||0),0);document.getElementById("stats").innerHTML=`<div class="stat primary"><div class="stat-label">إجمالي المعروض</div><div class="stat-value">${money(total)}</div></div><div class="stat"><div class="stat-label">الكشف</div><div class="stat-value">${money(sum("consultation"))}</div></div><div class="stat"><div class="stat-label">الجلسات</div><div class="stat-value">${money(sum("session"))}</div></div><div class="stat"><div class="stat-label">مقدم</div><div class="stat-value">${money(sum("advance"))}</div></div>`;document.getElementById("paylist").innerHTML=`<div class="card">${list.length?list.map(p=>{const patient=patientById(p.patientId);const label=p.type==="consultation"?"كشف":p.type==="session"?"جلسة":"مقدم جلسة قادمة";return `<div class="payment" style="padding:14px 0;border-bottom:1px solid var(--border)"><div class="payment-main"><div class="name">${esc(patient?.name||"مريض محذوف")}</div><div class="muted">${fmtDateTime(p.createdAt)}</div></div><span class="btn secondary">${label}</span><b>${money(p.amount)}</b><button class="btn secondary" data-edit="${p.id}">✏️</button></div>`}).join(""):'<div class="empty">لا توجد مدفوعات مطابقة.</div>'}</div>`;document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openModal("payment",state.data.payments.find(p=>p.id===b.dataset.edit)))};
+  ["payq","paydate","paytype"].forEach(id=>document.getElementById(id).oninput=draw);draw();
+}
+function modalHTML(title,body){return `<div class="modal-bg" id="modalbg"><div class="modal"><div class="modal-head"><h3>${title}</h3><button id="close" class="icon-btn">✕</button></div><div class="modal-body">${body}</div></div></div>`}
+function renderModal(){
+  let title="",body="";
+  if(state.modal.type==="patient"){const v=state.modal.value;title=v.id?"تعديل بيانات المريض":"إضافة مريض";body=`<div class="form"><input id="f_name" placeholder="الاسم الثلاثي" value="${esc(v.name||"")}"><input id="f_phone" placeholder="رقم التليفون" value="${esc(v.phone||"")}"><input id="f_price" type="number" placeholder="سعر الجلسة بعد الكشف (اختياري)" value="${esc(v.sessionPrice||"")}"><button id="save" class="btn">حفظ</button></div>`}
+  else if(state.modal.type==="session"){const v=state.modal.value;title=v.id?"تعديل الموعد":"حجز موعد";body=`<div class="form"><select id="f_patient"><option value="">اختر المريض</option>${state.data.patients.map(p=>`<option value="${p.id}" ${p.id===v.patientId?"selected":""}>${esc(p.name)}</option>`).join("")}</select><select id="f_type"><option value="session" ${v.type!=="consultation"?"selected":""}>جلسة</option><option value="consultation" ${v.type==="consultation"?"selected":""}>كشف أول مرة</option></select><input id="f_date" type="date" value="${v.date||localDateISO()}"><input id="f_time" type="time" value="${v.time||""}"><input id="f_price" type="number" placeholder="${v.type==="consultation"?"سعر الكشف — الافتراضي 170":"سعر الجلسة"} value="${v.price??""}"><button id="save" class="btn">حفظ الموعد</button></div>`}
+  else {const v=state.modal.value;const applicable=state.data.sessions.filter(s=>s.patientId===v.patientId);title=v.id?"تعديل دفعة":"تسجيل دفعة";body=`<div class="form"><select id="f_patient"><option value="">اختر المريض</option>${state.data.patients.map(p=>`<option value="${p.id}" ${p.id===v.patientId?"selected":""}>${esc(p.name)}</option>`).join("")}</select><select id="f_type"><option value="consultation" ${v.type==="consultation"?"selected":""}>كشف</option><option value="session" ${v.type==="session"?"selected":""}>جلسة</option><option value="advance" ${v.type==="advance"?"selected":""}>مقدم جلسة قادمة</option></select><select id="f_session"><option value="">اختياري: اربط الدفع بموعد</option>${applicable.map(s=>`<option value="${s.id}" ${s.id===v.sessionId?"selected":""}>${fmtDate(s.date)} — ${esc(s.time)} — ${s.type==="consultation"?"كشف":"جلسة"}</option>`).join("")}</select><input id="f_amount" type="number" placeholder="المبلغ بالجنيه" value="${esc(v.amount??"")}"><div id="advWrap" class="${v.type==="advance"?"":"hidden"}"><div class="notice">حدد ميعاد الجلسة القادمة (لو مش هتربطها بموعد محجوز فوق، هيتم حجزها تلقائيًا بالتاريخ والوقت دول)</div><input id="f_advdate" type="date" value="${v.advDate||""}"><input id="f_advtime" type="time" value="${v.advTime||""}"></div><div class="notice">سيتم تسجيل تاريخ ووقت الدفعة نفسها تلقائيًا لحظة الحفظ.</div><button id="save" class="btn">حفظ الدفعة</button></div>`}
+  document.body.insertAdjacentHTML("beforeend",modalHTML(title,body));document.getElementById("close").onclick=closeModal;document.getElementById("save").onclick=saveModal;
+  if(state.modal.type==="session"){document.getElementById("f_patient").onchange=()=>{const p=patientById(document.getElementById("f_patient").value);if(p?.sessionPrice)document.getElementById("f_price").value=p.sessionPrice}}
+  if(state.modal.type==="payment"){document.getElementById("f_patient").onchange=()=>{const pid=document.getElementById("f_patient").value,sel=document.getElementById("f_session"),ss=state.data.sessions.filter(s=>s.patientId===pid);sel.innerHTML='<option value="">اختياري: اربط الدفع بموعد</option>'+ss.map(s=>`<option value="${s.id}">${fmtDate(s.date)} — ${esc(s.time)} — ${s.type==="consultation"?"كشف":"جلسة"}</option>`).join("")};document.getElementById("f_type").onchange=()=>{document.getElementById("advWrap").classList.toggle("hidden",document.getElementById("f_type").value!=="advance")}}
+}
+function closeModal(){document.getElementById("modalbg")?.remove();state.modal=null}
+function saveModal(){
+  const type=state.modal.type,v=state.modal.value;
+  if(type==="patient"){const name=document.getElementById("f_name").value.trim(),phone=document.getElementById("f_phone").value.trim(),sessionPrice=document.getElementById("f_price").value;if(!name||!phone)return alert("اكتب الاسم ورقم التليفون.");const p={...v,name,phone,sessionPrice};closeModal();updateData("patients",a=>v.id?a.map(x=>x.id===v.id?p:x):[...a,{...p,id:uid(),createdAt:new Date().toISOString()}])}
+  else if(type==="session"){const patientId=document.getElementById("f_patient").value,date=document.getElementById("f_date").value,time=document.getElementById("f_time").value,stype=document.getElementById("f_type").value,price=Number(document.getElementById("f_price").value||0)||(stype==="consultation"?170:0);if(!patientId||!date||!time)return alert("اختر المريض والتاريخ والوقت.");const s={...v,patientId,date,time,type:stype,price};closeModal();updateData("sessions",a=>v.id?a.map(x=>x.id===v.id?s:x):[...a,{...s,id:uid(),createdAt:new Date().toISOString()}])}
+  else {const patientId=document.getElementById("f_patient").value,sessionId=document.getElementById("f_session").value,type2=document.getElementById("f_type").value,amount=Number(document.getElementById("f_amount").value||0),advDate=type2==="advance"?document.getElementById("f_advdate").value:"",advTime=type2==="advance"?document.getElementById("f_advtime").value:"";if(!patientId||!amount)return alert("اختر المريض واكتب المبلغ.");const createdAt=v.id?v.createdAt:new Date().toISOString();closeModal();let finalSessionId=sessionId;if(type2==="advance"&&advDate&&!sessionId){const patient=patientById(patientId),newSession={id:uid(),patientId,date:advDate,time:advTime,type:"session",price:patient?.sessionPrice||0,paid:false,createdAt:new Date().toISOString()};finalSessionId=newSession.id;updateData("sessions",a=>[...a,newSession])}const p={...v,id:v.id||uid(),patientId,sessionId:finalSessionId,type:type2,amount,createdAt};updateData("payments",a=>v.id?a.map(x=>x.id===v.id?p:x):[...a,p]);if(finalSessionId&&type2!=="advance")updateData("sessions",a=>a.map(s=>s.id===finalSessionId?{...s,paid:true,paidAt:createdAt}:s))}
+  render();
+}
+
+function openModal(type,value){state.modal={type,value:{...value}};render()}
+function showFatal(msg){const old=document.getElementById("fatal-global");if(old)old.remove();document.body.insertAdjacentHTML("beforeend",`<div id="fatal-global" class="fatal"><div class="card"><h2>حدث خطأ</h2><pre>${esc(msg)}</pre></div></div>`)}
+async function boot(){
+  try{
+    const s=sessionGet();
+    if(s?.access_token){
+      state.user={id:s.user.id,email:s.user.email};state.screen="portal";render();
+      try{await loadData();state.status="saved";render()}catch(e){state.status="error";showFatal("تعذر تحميل بيانات Supabase: "+e.message)}
+    }else{state.screen="auth";render()}
+  }catch(e){showFatal(e.stack||e.message)}
+}
+window.addEventListener("error",e=>{if(e.filename||e.message)showFatal((e.message||"Unknown error")+"\\n"+(e.filename||"")+" : "+(e.lineno||""))});
+window.addEventListener("unhandledrejection",e=>showFatal("Unhandled Promise Rejection:\\n"+String(e.reason||"Unknown error")));
+boot();
+})();
+</script>
+</body>
+</html>
